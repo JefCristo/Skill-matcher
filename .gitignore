@@ -1,0 +1,35 @@
+# Java / Spring Boot
+*.class
+*.log
+*.jar
+*.war
+*.ear
+.gradle/
+build/
+target/
+bin/
+.apt_generated/
+.mvn/
+mvnw
+mvnw.cmd
+
+# Hide the actual properties file (so your password stays secret)
+application.properties
+
+# Node / React / Vite
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# OS
+.DS_Store
+Thumbs.db
