@@ -1,7 +1,7 @@
 # Build stage
 FROM eclipse-temurin:21-jdk-alpine AS builder
 WORKDIR /app
-COPY . .
+COPY ./demo /app
 RUN chmod +x ./gradlew
 RUN ./gradlew clean bootJar -x test
 
