@@ -8,7 +8,7 @@ function Dashboard({ token, setToken }) {
   const [loading, setLoading] = useState(true);
 
   const api = axios.create({
-    baseURL: 'http://localhost:8080/api',
+    baseURL: 'https://skill-matcher-s8li.onrender.com/api',
     headers: { Authorization: `Bearer ${token}` }
   });
 

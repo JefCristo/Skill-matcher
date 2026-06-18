@@ -18,11 +18,10 @@ function Login({ setToken }) {
       let payload;
 
       if (isLogin) {
-        url = 'http://localhost:8080/api/login';
+        url = 'https://skill-matcher-s8li.onrender.com/api/login';
         payload = { email, password };
       } else {
-        url = 'http://localhost:8080/api/register';
-        payload = { email, password, name, role };
+        url = 'https://skill-matcher-s8li.onrender.com/api/register';        payload = { email, password, name, role };
       }
 
       const response = await axios.post(url, payload);
