@@ -13,8 +13,7 @@ bin/
 mvnw
 mvnw.cmd
 
-# Hide the actual properties file (so your password stays secret)
-application.properties
+
 
 # Node / React / Vite
 frontend/node_modules/
