@@ -68,76 +68,85 @@ function Dashboard({ token, setToken }) {
   };
 
   if (loading) {
-    return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
+    return (
+      <div className="app-container animate-in" style={{ textAlign: 'center', paddingTop: '60px' }}>
+        <p style={{ color: 'var(--text-secondary)' }}>Loading your dashboard…</p>
+      </div>
+    );
   }
 
   return (
-    <div style={{ maxWidth: '800px', margin: '30px auto', padding: '20px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h1>My Dashboard</h1>
-        <button onClick={handleLogout} style={{ padding: '8px 16px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-          Logout
-        </button>
-      </div>
-
-      <div style={{ border: '1px solid #ddd', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
-        <h3>Add New Skill</h3>
-        <form onSubmit={handleAddSkill} style={{ display: 'flex', gap: '10px' }}>
-          <input
-            type="text"
-            value={newSkill}
-            onChange={(e) => setNewSkill(e.target.value)}
-            placeholder="e.g., Java, React, Python"
-            style={{ flex: 1, padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
-          />
-          <button type="submit" style={{ padding: '8px 16px', background: '#28a745', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-            Add Skill
+    <div className="app-container animate-in">
+      <div className="card">
+        {/* Header */}
+        <div className="dashboard-header">
+          <h1>My Team</h1>
+          <button className="btn-logout" onClick={handleLogout}>
+            Logout
           </button>
-        </form>
-      </div>
+        </div>
 
-      <div style={{ border: '1px solid #ddd', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
-        <h3>My Skills</h3>
-        {skills.length === 0 ? (
-          <p>You haven't added any skills yet.</p>
-        ) : (
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {skills.map((skill) => (
-              <li key={skill.id} style={{ background: '#f0f0f0', padding: '8px 12px', marginBottom: '5px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '8px', marginRight: '5px' }}>
-                <span>{skill.name}</span>
-                <button 
-                  onClick={() => handleDeleteSkill(skill.id)}
-                  style={{ 
-                    background: '#dc3545', 
-                    color: 'white', 
-                    border: 'none', 
-                    borderRadius: '4px', 
-                    padding: '2px 8px', 
-                    cursor: 'pointer',
-                    fontSize: '12px'
-                  }}
-                >
-                  ×
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+        {/* Add Skill */}
+        <div className="skill-section">
+          <h3>Add Skill</h3>
+          <form onSubmit={handleAddSkill} className="input-row">
+            <input
+              type="text"
+              value={newSkill}
+              onChange={(e) => setNewSkill(e.target.value)}
+              placeholder="e.g., Java, React, Python"
+            />
+            <button type="submit" className="btn-primary">
+              Add
+            </button>
+          </form>
+        </div>
 
-      <div style={{ border: '1px solid #ddd', padding: '20px', borderRadius: '8px' }}>
-        <h3>Your Hackathon Matches</h3>
-        {matches.length === 0 ? (
-          <p>No matches found. Try adding more skills or register another user with different skills.</p>
-        ) : (
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {matches.map((user) => (
-              <li key={user.id} style={{ background: '#e9f7fe', padding: '12px 16px', marginBottom: '10px', borderRadius: '8px' }}>
-                <strong>{user.name}</strong> ({user.role}) - {user.email}
-              </li>
-            ))}
-          </ul>
-        )}
+        {/* My Skills */}
+        <div className="skill-section">
+          <h3>My Skills</h3>
+          {skills.length === 0 ? (
+            <p className="empty-state">You haven't added any skills yet.</p>
+          ) : (
+            <div className="skill-tags">
+              {skills.map((skill) => (
+                <span key={skill.id} className="skill-tag">
+                  {skill.name}
+                  <button
+                    className="btn-danger"
+                    onClick={() => handleDeleteSkill(skill.id)}
+                    aria-label="Remove skill"
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Matches */}
+        <div>
+          <h3>Your Hackathon Matches</h3>
+          {matches.length === 0 ? (
+            <p className="empty-state">
+              No matches yet. Add more skills or register another user with different skills to see matches.
+            </p>
+          ) : (
+            <div className="match-list">
+              {matches.map((user) => (
+                <div key={user.id} className="match-item">
+                  <div>
+                    <div className="match-name">{user.name}</div>
+                    <div className="match-role">{user.role}</div>
+                    <div className="match-email">{user.email}</div>
+                  </div>
+                  <div style={{ fontSize: '14px', color: 'var(--primary)' }}>Match</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

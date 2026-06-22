@@ -21,7 +21,8 @@ function Login({ setToken }) {
         url = 'https://skill-matcher-s8li.onrender.com/api/login';
         payload = { email, password };
       } else {
-        url = 'https://skill-matcher-s8li.onrender.com/api/register';        payload = { email, password, name, role };
+        url = 'https://skill-matcher-s8li.onrender.com/api/register';
+        payload = { email, password, name, role };
       }
 
       const response = await axios.post(url, payload);
@@ -45,72 +46,85 @@ function Login({ setToken }) {
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
-      <h2>{isLogin ? 'Login' : 'Register'}</h2>
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '10px' }}>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-          />
+    <div className="app-container animate-in">
+      <div className="card">
+        <h1>{isLogin ? 'Welcome Back' : 'Create Account'}</h1>
+        <p style={{ color: 'var(--text-secondary)', marginBottom: '24px' }}>
+          {isLogin ? 'Sign in to find your hackathon team' : 'Join the community and get matched'}
+        </p>
+
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="you@example.com"
+            />
+          </div>
+
+          <div className="input-group">
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="••••••••"
+            />
+          </div>
+
+          {!isLogin && (
+            <>
+              <div className="input-group">
+                <label>Full Name</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  placeholder="Your name"
+                />
+              </div>
+              <div className="input-group">
+                <label>Your Role</label>
+                <input
+                  type="text"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  required
+                  placeholder="e.g., Backend, Frontend, DevOps"
+                />
+              </div>
+            </>
+          )}
+
+          <button type="submit" className="btn-primary">
+            {isLogin ? 'Sign In' : 'Create Account'}
+          </button>
+        </form>
+
+        <div className="toggle-container">
+          {isLogin ? "Don't have an account?" : 'Already a member?'}
+          <button
+            className="btn-secondary"
+            onClick={() => {
+              setIsLogin(!isLogin);
+              setMessage('');
+            }}
+          >
+            {isLogin ? 'Sign up' : 'Sign in'}
+          </button>
         </div>
 
-        <div style={{ marginBottom: '10px' }}>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-          />
-        </div>
-
-        {!isLogin && (
-          <>
-            <div style={{ marginBottom: '10px' }}>
-              <label>Name:</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-              />
-            </div>
-            <div style={{ marginBottom: '10px' }}>
-              <label>Role (e.g., Backend, Frontend):</label>
-              <input
-                type="text"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                required
-                style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-              />
-            </div>
-          </>
+        {message && (
+          <div className={`message ${message.includes('successful') ? 'success' : 'error'}`}>
+            {message}
+          </div>
         )}
-
-        <button type="submit" style={{ width: '100%', padding: '10px', background: '#007bff', color: 'white', border: 'none', borderRadius: '4px' }}>
-          {isLogin ? 'Login' : 'Register'}
-        </button>
-      </form>
-
-      <p style={{ marginTop: '10px', textAlign: 'center' }}>
-        {isLogin ? "Don't have an account?" : "Already have an account?"}
-        <button
-          onClick={() => setIsLogin(!isLogin)}
-          style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', marginLeft: '5px' }}
-        >
-          {isLogin ? 'Register' : 'Login'}
-        </button>
-      </p>
-
-      {message && <p style={{ marginTop: '10px', textAlign: 'center', color: message.includes('successful') ? 'green' : 'red' }}>{message}</p>}
+      </div>
     </div>
   );
 }
